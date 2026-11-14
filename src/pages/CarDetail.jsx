@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft, Car, MapPin, User, Fuel, Calendar, Phone, Tag } from 'lucide-react'
-import { cars } from '../data/mockData'
+import { ArrowLeft, Car, MapPin, User, Fuel, Calendar, Tag, CheckCircle2, TrendingUp, Users } from 'lucide-react'
+import { cars, bidders } from '../data/mockData'
 
 export default function CarDetail() {
   const { id } = useParams()
@@ -14,6 +14,18 @@ export default function CarDetail() {
     </div>
   )
 
+  // Find bidders actively bidding on this vehicle
+  const carBids = bidders.flatMap(b =>
+    (b.activeBids || [])
+      .filter(ab => ab.carId === car.id)
+      .map(ab => ({
+        bidderName: b.name,
+        bidderCode: b.code,
+        bidderStatus: b.status,
+        ...ab
+      }))
+  )
+
   return (
     <div className="page">
       <div className="page-header">
@@ -23,12 +35,12 @@ export default function CarDetail() {
           </Link>
           <div>
             <div className="page-title" style={{ fontSize: 16 }}>{car.name}</div>
-            <div className="page-subtitle">App ID: {car.appId} · {car.location}</div>
+            <div className="page-subtitle">Enquiry ID: {car.appId} · {car.location}</div>
           </div>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
           <button className="btn btn-outline">Compare</button>
-          <button className="btn btn-primary"><Phone size={14} /> Contact Dealer</button>
+          <button className="btn btn-primary">🏷 Place Bid</button>
         </div>
       </div>
 
@@ -62,6 +74,7 @@ export default function CarDetail() {
                 <span className="badge green">{car.owner}</span>
                 <span className="badge yellow">{car.fuel}</span>
                 <span className="badge purple">{car.year}</span>
+                {car.type && <span className="badge gray">{car.type}</span>}
               </div>
             </div>
           </div>
@@ -78,8 +91,8 @@ export default function CarDetail() {
                   { label: 'Fuel Type', value: car.fuel, icon: Fuel },
                   { label: 'Owner Type', value: car.owner, icon: User },
                   { label: 'Location', value: car.location, icon: MapPin },
-                  { label: 'Dealer Code', value: car.dealerCode, icon: Tag },
-                  { label: 'App ID', value: car.appId, icon: Tag },
+                  { label: 'Enquiry ID', value: car.appId, icon: Tag },
+                  { label: 'Inspection Status', value: '140+ Points Certified', icon: CheckCircle2 },
                 ].map(({ label, value, icon: Icon }) => (
                   <div key={label} style={{ padding: 12, background: '#f8fafc', borderRadius: 8, display: 'flex', gap: 10 }}>
                     <Icon size={15} color="#64748b" style={{ marginTop: 2, flexShrink: 0 }} />
@@ -100,7 +113,7 @@ export default function CarDetail() {
           <div className="card">
             <div className="card-header">
               <span className="card-title">🔴 Live Bid Status</span>
-              <span className="badge red">Active</span>
+              <span className="badge red">Active Auction</span>
             </div>
             <div className="card-body" style={{ textAlign: 'center' }}>
               <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginBottom: 16 }}>
@@ -136,20 +149,58 @@ export default function CarDetail() {
             </div>
           </div>
 
-          {/* Dealer */}
+          {/* Top Bidders & Live Activity */}
           <div className="card">
-            <div className="card-header"><span className="card-title">Dealer Info</span></div>
-            <div className="card-body">
-              <div style={{ marginBottom: 12 }}>
-                <div style={{ fontSize: 15, fontWeight: 700, color: '#1e293b' }}>{car.dealerName}</div>
-                <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>Code: {car.dealerCode}</div>
-              </div>
-              <div className="profile-stat-row"><span className="profile-stat-label">Location</span><span className="profile-stat-value">{car.location}</span></div>
-              <div style={{ marginTop: 12 }}>
-                <button className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
-                  <Phone size={14} /> Contact Dealer
+            <div className="card-header">
+              <span className="card-title" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <TrendingUp size={15} color="#4f46e5" /> Top Bidders
+              </span>
+              <Link to="/bidders">
+                <span style={{ fontSize: 12, color: '#4f46e5', fontWeight: 600, cursor: 'pointer' }}>View All Bidders →</span>
+              </Link>
+            </div>
+            <div className="card-body" style={{ padding: '12px 16px' }}>
+              {carBids.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '16px 0', color: '#94a3b8', fontSize: 13 }}>
+                  <Users size={28} style={{ opacity: 0.4, marginBottom: 6, display: 'inline-block' }} />
+                  <div>No bids placed yet. Be the first bidder!</div>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {carBids.map((b, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        padding: '10px 12px',
+                        borderRadius: 8,
+                        background: b.status === 'Leading' ? '#f0fdf4' : '#f8fafc',
+                        border: `1px solid ${b.status === 'Leading' ? '#bbf7d0' : '#e2e8f0'}`,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between'
+                      }}
+                    >
+                      <div>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: '#1e293b' }}>{b.bidderName}</div>
+                        <div style={{ fontSize: 11, color: '#64748b' }}>{b.bidderCode} · {b.time}</div>
+                      </div>
+                      <div style={{ textAlign: 'right' }}>
+                        <div style={{ fontSize: 14, fontWeight: 800, color: b.status === 'Leading' ? '#16a34a' : '#1e293b' }}>
+                          {b.bidAmount}
+                        </div>
+                        <span className={`badge ${b.status === 'Leading' ? 'green' : 'gray'}`} style={{ fontSize: 10, padding: '2px 6px' }}>
+                          {b.status}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <Link to="/bidders" style={{ textDecoration: 'none' }}>
+                <button className="btn btn-outline btn-sm" style={{ width: '100%', justifyContent: 'center', marginTop: 12 }}>
+                  <Users size={13} /> Manage Bidders
                 </button>
-              </div>
+              </Link>
             </div>
           </div>
         </div>

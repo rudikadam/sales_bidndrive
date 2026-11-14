@@ -7,6 +7,8 @@ import {
 const navItems = [
   { label: 'Dashboard', icon: LayoutDashboard, to: '/dashboard' },
   { label: 'All Cars', icon: Car, to: '/all-cars' },
+  { label: 'Bidders', icon: Users, to: '/bidders' },
+  { label: 'Assigned Enquiry', icon: FileText, to: '/bidder-assigned-enquiry' },
   { label: 'Call Logs', icon: Phone, to: '/call-logs' },
 ]
 

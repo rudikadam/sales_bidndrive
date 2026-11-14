@@ -16,7 +16,7 @@ export default function CallLogs() {
       <div className="page-header">
         <div>
           <div className="page-title">Call Logs</div>
-          <div className="page-subtitle">Track all dealer communication history</div>
+          <div className="page-subtitle">Track all bidder communication history</div>
         </div>
         <button className="btn btn-primary"><Phone size={14} /> New Call</button>
       </div>
@@ -46,7 +46,7 @@ export default function CallLogs() {
               <tr>
                 <th>#</th>
                 <th>Type</th>
-                <th>Dealer</th>
+                <th>Bidder</th>
                 <th>Date</th>
                 <th>Time</th>
                 <th>Duration</th>
@@ -64,7 +64,7 @@ export default function CallLogs() {
                       <span style={{ fontSize: 12 }}>{log.type}</span>
                     </div>
                   </td>
-                  <td style={{ fontWeight: 600 }}>{log.dealer}</td>
+                  <td style={{ fontWeight: 600 }}>{log.bidder || log.dealer}</td>
                   <td style={{ color: '#64748b' }}>{log.date}</td>
                   <td style={{ color: '#64748b' }}>{log.time}</td>
                   <td>

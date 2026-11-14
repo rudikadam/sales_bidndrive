@@ -4,7 +4,7 @@ import { cars, callLogs } from '../data/mockData'
 
 const stats = [
   { label: 'Total Cars', value: '248', change: '+12%', up: true, icon: Car, color: 'blue' },
-  { label: 'Active Dealers', value: '34', change: '+3%', up: true, icon: Users, color: 'green' },
+  { label: 'Active Bidders', value: '34', change: '+3%', up: true, icon: Users, color: 'green' },
   { label: 'Calls Today', value: '56', change: '-5%', up: false, icon: Phone, color: 'yellow' },
   { label: 'Revenue MTD', value: '₹4.2L', change: '+18%', up: true, icon: TrendingUp, color: 'purple' },
 ]
@@ -51,8 +51,10 @@ export default function Dashboard({ user }) {
           <div className="page-title">Good afternoon, {user?.name?.split(' ')[0]} 👋</div>
           <div className="page-subtitle">Here's what's happening today on Sales BID N DRIVE</div>
         </div>
-        <div style={{ display: 'flex', gap: 10 }}>
-          <Link to="/all-cars"><button className="btn btn-outline">View All Cars</button></Link>
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+          <Link to="/bidder-assigned-enquiry"><button className="btn btn-outline">Assigned Enquiries</button></Link>
+          <Link to="/bidders"><button className="btn btn-outline">View Bidders</button></Link>
+          <Link to="/all-cars"><button className="btn btn-primary">View All Cars</button></Link>
         </div>
       </div>
 
@@ -99,7 +101,7 @@ export default function Dashboard({ user }) {
               padding: '10px 16px', borderBottom: '1px solid #f1f5f9'
             }}>
               <div>
-                <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{log.dealer}</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#1e293b' }}>{log.bidder || log.dealer}</div>
                 <div style={{ fontSize: 11, color: '#64748b', marginTop: 1 }}>{log.date} · {log.time}</div>
               </div>
               <div style={{ textAlign: 'right' }}>

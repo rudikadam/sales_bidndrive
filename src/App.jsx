@@ -7,6 +7,8 @@ import AllCars from './pages/AllCars'
 import CallLogs from './pages/CallLogs'
 import ProfilePage from './pages/ProfilePage'
 import CarDetail from './pages/CarDetail'
+import Bidders from './pages/Bidders'
+import BidderAssignedEnquiry from './pages/BidderAssignedEnquiry'
 import './App.css'
 
 function App() {
@@ -34,6 +36,11 @@ function App() {
           <Route path="dashboard" element={<Dashboard user={user} />} />
           <Route path="all-cars" element={<AllCars />} />
           <Route path="all-cars/:id" element={<CarDetail />} />
+          <Route path="bidders" element={<Bidders />} />
+          <Route path="bider" element={<Navigate to="/bidders" replace />} />
+          <Route path="bidder-assigned-enquiry" element={<BidderAssignedEnquiry />} />
+          <Route path="assigned-enquiry" element={<Navigate to="/bidder-assigned-enquiry" replace />} />
+          <Route path="bidder-assigned-enquiries" element={<Navigate to="/bidder-assigned-enquiry" replace />} />
           <Route path="call-logs" element={<CallLogs />} />
           <Route path="profile" element={<ProfilePage user={user} onLogout={logout} />} />
         </Route>
