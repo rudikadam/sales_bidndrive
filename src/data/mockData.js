@@ -245,12 +245,12 @@ export const dealers = bidders.map(b => ({
 }))
 
 export const callLogs = [
-  { id: 1, bidder: 'Seths & Sons Automobiles', dealer: 'SETHS AND SONS', date: '12-Nov-2026', time: '10:30 AM', duration: '5:23', type: 'Outgoing', status: 'Connected' },
-  { id: 2, bidder: 'Shri Motors & Wheels', dealer: 'SHRI MOTORS', date: '12-Nov-2026', time: '09:15 AM', duration: '2:10', type: 'Incoming', status: 'Connected' },
-  { id: 3, bidder: 'National Car Hub', dealer: 'NATIONAL CARS', date: '11-Nov-2026', time: '04:45 PM', duration: '0:00', type: 'Outgoing', status: 'Missed' },
-  { id: 4, bidder: 'City Auto Zone Pvt Ltd', dealer: 'CITY AUTO ZONE', date: '11-Nov-2026', time: '02:30 PM', duration: '8:45', type: 'Outgoing', status: 'Connected' },
-  { id: 5, bidder: 'Prime Motors Prestige', dealer: 'PRIME MOTORS', date: '10-Nov-2026', time: '11:00 AM', duration: '3:12', type: 'Incoming', status: 'Connected' },
-  { id: 6, bidder: 'Seths & Sons Automobiles', dealer: 'SETHS AND SONS', date: '10-Nov-2026', time: '09:30 AM', duration: '0:00', type: 'Incoming', status: 'Missed' },
+  { id: 1, bidder: 'Seths & Sons Automobiles', date: '12-Nov-2026', time: '10:30 AM', duration: '5:23', type: 'Outgoing', status: 'Connected' },
+  { id: 2, bidder: 'Shri Motors & Wheels', date: '12-Nov-2026', time: '09:15 AM', duration: '2:10', type: 'Incoming', status: 'Connected' },
+  { id: 3, bidder: 'National Car Hub', date: '11-Nov-2026', time: '04:45 PM', duration: '0:00', type: 'Outgoing', status: 'Missed' },
+  { id: 4, bidder: 'City Auto Zone Pvt Ltd', date: '11-Nov-2026', time: '02:30 PM', duration: '8:45', type: 'Outgoing', status: 'Connected' },
+  { id: 5, bidder: 'Prime Motors Prestige', date: '10-Nov-2026', time: '11:00 AM', duration: '3:12', type: 'Incoming', status: 'Connected' },
+  { id: 6, bidder: 'Seths & Sons Automobiles', date: '10-Nov-2026', time: '09:30 AM', duration: '0:00', type: 'Incoming', status: 'Missed' },
 ]
 
 export const DEMO_USERS = [

@@ -7,7 +7,7 @@ export default function Layout({ user, onLogout }) {
   const [collapsed, setCollapsed] = useState(false)
   return (
     <div className="layout">
-      <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(c => !c)} onLogout={onLogout} />
+      <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(c => !c)} onLogout={onLogout} user={user} />
       <Topbar user={user} collapsed={collapsed} />
       <div className={`main-content${collapsed ? ' sidebar-collapsed' : ''}`}>
         <Outlet />

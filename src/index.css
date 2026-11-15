@@ -1,15 +1,60 @@
-/* Global Styles - Sales BID N DRIVE */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+@import "tailwindcss";
 
+@layer utilities {
+  /* Convert all standard white panels into Liquid Glass automatically */
+  .bg-white {
+    background: rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(30px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(30px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.7) !important;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05) !important;
+  }
+
+  /* Force background wrappers to transparent so the fluid mesh shows through */
+  .bg-slate-50,
+  .bg-gray-50,
+  .bg-slate-100,
+  .bg-gray-100 {
+    background: transparent !important;
+    border: none !important;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   ── APPLE LIQUID BACKGROUND MESH
+   ────────────────────────────────────────────────────────────────────────── */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-  background: #f1f5f9;
-  color: #1e293b;
+  margin: 0;
+  min-height: 100vh;
+  background-color: #f4f7fa;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  color: #1d1d1f;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Highly accurate blurred liquid gradient overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(170, 215, 255, 0.8) 0%, transparent 45vw),
+    radial-gradient(circle at 85% 25%, rgba(180, 240, 200, 0.65) 0%, transparent 40vw),
+    radial-gradient(circle at 80% 80%, rgba(255, 190, 190, 0.8) 0%, transparent 50vw),
+    radial-gradient(circle at 20% 90%, rgba(230, 220, 255, 0.7) 0%, transparent 45vw);
+  /* Hard blur the gradients to eliminate banding and simulate liquid mechanics */
+  filter: blur(60px);
+  transform: scale(1.1);
 }
 
 a { text-decoration: none; color: inherit; }
 button { cursor: pointer; border: none; outline: none; font-family: inherit; }
-input, select { outline: none; border: none; font-family: inherit; }
+input, select, textarea { outline: none; border: none; font-family: inherit; }
 
 #root {
   width: 100%;
@@ -21,6 +66,216 @@ input, select { outline: none; border: none; font-family: inherit; }
   display: block;
 }
 
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: #f1f5f9; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+/* ── Custom Sidebar Scrollbar ── */
+.sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+  width: 3px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 999px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.6);
+}
+
+/* Apple-style Smooth Scrollbars */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.22);
+  background-clip: content-box;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   ── Unified Table UI Theme
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* 1. Global table structure & borders */
+table.w-full,
+table {
+  background: rgba(255, 255, 255, 0.4) !important;
+  backdrop-filter: blur(24px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(150%) !important;
+  border-collapse: separate !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05) !important;
+  border-radius: 16px;
+  overflow: hidden;
+  color: #1d1d1f !important;
+}
+
+/* 2. Table Head (thead and headers) */
+table thead,
+table thead tr {
+  background: rgba(255, 255, 255, 0.4) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+table th {
+  color: #000000 !important;
+  font-weight: 700 !important;
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  padding: 12px 16px !important;
+  border-bottom: 2px solid #e2e8f0 !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+/* 3. Table Rows and Dividers */
+table tbody tr {
+  background-color: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05), inset 0 2px 4px rgba(255, 255, 255, 1) !important;
+}
+
+/* Slightly darken the cells directly to pop the text during hover */
+table tbody tr:hover td {
+  color: #0f172a !important;
+}
+
+/* 4. Table Cells (td) */
+table td {
+  padding: 12px 16px !important;
+  color: #000000 !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+/* 5. Force all typography/text components within table cell content to be black */
+table td p,
+table td span:not(button span):not(a span),
+table td div:not(button div):not(a div),
+table td font,
+table td small,
+table td strong,
+table td b,
+table td i,
+table td em,
+table td label {
+  color: #000000 !important;
+}
+
+/* 6. Force SVGs/Icons inside table headings and standard cell contents (except buttons/links/dropdowns) to be black */
+table td svg:not(button svg):not(a svg):not(select svg):not(input svg),
+table th svg {
+  color: #000000 !important;
+  stroke: #000000 !important;
+}
+
+table td svg path:not(button svg path):not(a svg path):not(select svg path):not(input svg path),
+table th svg path {
+  stroke: #000000 !important;
+}
+
+/* 7. Badges, status pills, and role labels inside tables: make them consistent neutral black-on-gray */
+table td span[class*="bg-"],
+table td span[class*="Badge"],
+table td span[class*="badge"],
+table td span[class*="status"],
+table td span[class*="Status"],
+table td div[class*="bg-"] {
+  background: rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(10px) !important;
+  color: #1d1d1f !important;
+  border: 1px solid rgba(255, 255, 255, 0.7) !important;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+  text-shadow: none !important;
+}
+
+/* Target dots/indicators inside status badges to be black */
+table td span[class*="bg-"] span[class*="bg-"],
+table td span[class*="bg-"] span[class*="w-1.5"],
+table td span[class*="badge"] span,
+table td span[class*="status"] span {
+  background-color: #000000 !important;
+  border-color: #000000 !important;
+  color: #000000 !important;
+}
+
+/* 8. Exclusions: ensure interactive UI buttons, links, inputs, and selects inside tables maintain their functionality and design */
+table button,
+table button *,
+table a,
+table a *,
+table input,
+table select,
+table option,
+table textarea,
+table [role="button"],
+table [role="button"] *,
+.btn-exclude,
+.btn-exclude * {
+  color: revert !important;
+  background-color: revert !important;
+  border-color: revert !important;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   ── Unified Table UI Theme — CSS-grid "table" variant
+   Some list pages (New Enquiry / Telecaller, Assigned Enquiries, QC) render
+   rows as CSS-grid <div>s instead of real <table> markup, so the `table td`
+   rules above never reach them. `.grid-data-table` opts a row/list container
+   into the same "text is always black" convention as real tables, without
+   touching backgrounds (avatar circles and status/priority pill backgrounds
+   keep their color — only the text ink turns black) and without touching
+   interactive controls.
+   ────────────────────────────────────────────────────────────────────────── */
+.grid-data-table p,
+.grid-data-table span:not(button span):not(a span),
+.grid-data-table label,
+.grid-data-table small,
+.grid-data-table strong,
+.grid-data-table b,
+.grid-data-table i,
+.grid-data-table em,
+.grid-data-table font {
+  color: #000000 !important;
+}
+
+.grid-data-table button,
+.grid-data-table button *,
+.grid-data-table a,
+.grid-data-table a *,
+.grid-data-table input,
+.grid-data-table select,
+.grid-data-table option,
+.grid-data-table textarea,
+.grid-data-table [role="button"],
+.grid-data-table [role="button"] * {
+  color: revert !important;
+}
+
+/* Header label row for grid-based tables whose headers are plain <div>s
+   (no avatars/badges live here), so it's safe to force every descendant. */
+.grid-table-head,
+.grid-table-head * {
+  color: #000000 !important;
+}
